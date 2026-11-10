@@ -1,0 +1,24 @@
+# Node
+node_modules/
+.next/
+dist/
+build/
+
+# Python virtual environments
+venv/
+venv*/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+
+# Python cache
+.pytest_cache/
+.mypy_cache/

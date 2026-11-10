@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Theme: "reservoir"
+   Re-colours the whole site by replacing Tailwind's green and gray
+   scales, so every page (old and new) picks up the new palette.
+   green = leaf, gray = cool mist, ink = deep nutrient-tank teal.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-green-50: #ecfaf3;
+  --color-green-100: #d3f3e2;
+  --color-green-200: #a9e6c8;
+  --color-green-300: #74d3a5;
+  --color-green-400: #3ebb82;
+  --color-green-500: #1fa36b;
+  --color-green-600: #148556;
+  --color-green-700: #0f6a46;
+  --color-green-800: #0d5439;
+  --color-green-900: #0b4330;
+  --color-green-950: #052a1e;
+
+  --color-gray-50: #f4f8f7;
+  --color-gray-100: #e9f0ee;
+  --color-gray-200: #d5e0dd;
+  --color-gray-300: #b6c6c2;
+  --color-gray-400: #8aa09b;
+  --color-gray-500: #637a75;
+  --color-gray-600: #4a5f5b;
+  --color-gray-700: #384a47;
+  --color-gray-800: #263431;
+  --color-gray-900: #172321;
+  --color-gray-950: #0c1615;
+
+  --color-slate-50: #f4f8f7;
+  --color-slate-100: #e9f0ee;
+  --color-slate-200: #d5e0dd;
+
+  --color-ink: #0b2b27;
+  --color-ink-2: #12403a;
+}
+
+/* Named colours for the light/dark variables below (use as bg-surface-2, border-line, text-muted ...) */
+@theme inline {
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-muted: var(--muted);
+  --color-fg: var(--text);
+}
+
+:root {
+  --bg: #f3f8f6;
+  --surface: #ffffff;
+  --surface-2: #e9f1ee;
+  --line: #d5e0dd;
+  --line-strong: #b6c6c2;
+  --text: #0c1615;
+  --muted: #4a5f5b;
+  --leaf: #148556;
+  --btn: #148556;
+  --btn-hover: #0f6a46;
+  --ink: #0b2b27;
+}
+
+.dark {
+  --bg: #08130f;
+  --surface: #0f201c;
+  --surface-2: #163029;
+  --line: #234038;
+  --line-strong: #35574d;
+  --text: #e8f1ee;
+  --muted: #9bb3ad;
+  --leaf: #3ebb82;
+  --btn: #148556;
+  --btn-hover: #1a9a64;
+  --ink: #050f0d;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+  ::selection {
+    background: #74d3a5;
+    color: #052a1e;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+/* visible keyboard focus on every button and link, in the brand colour */
+button:focus-visible,
+a:focus-visible,
+[role="tab"]:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--leaf);
+  outline-offset: 2px;
+}
+
+/* ------------------------------ components ------------------------------ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    transition: background-color 0.18s, border-color 0.18s, color 0.18s;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--btn);
+    color: #fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--btn-hover);
+  }
+  .btn-outline {
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    background: transparent;
+  }
+  .btn-outline:hover:not(:disabled) {
+    background: var(--surface-2);
+  }
+  .btn-danger {
+    border: 1px solid #dc2626;
+    color: #dc2626;
+    background: transparent;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: rgba(220, 38, 38, 0.08);
+  }
+
+  .field {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--text);
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .field::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .field:focus {
+    border-color: var(--leaf);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--leaf) 25%, transparent);
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .surface {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+  }
+
+  .muted {
+    color: var(--muted);
+  }
+
+  .glass {
+    background: color-mix(in srgb, var(--bg) 84%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+}
+
+/* The brand line: the universal-indicator pH colours */
+.ph-ribbon {
+  background: linear-gradient(90deg, #e53935, #fb8c00, #fdd835, #43a047, #1e88e5, #5e35b1);
+}
+
+@keyframes rotate360 {
+  0% {
+    transform: rotateY(0deg);
+  }
+  20% {
+    transform: rotateY(360deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
