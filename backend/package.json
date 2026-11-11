@@ -11,6 +11,7 @@
     "test": "node tests/orders.test.js && node tests/auth.test.js"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^2.1.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
