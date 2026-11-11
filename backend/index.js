@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const { injectSpeedInsights } = require("@vercel/speed-insights");
 const connectDB = require("./utils/db");
 const migrateStock = require("./utils/migrate");
 const { stripeWebhook } = require("./controllers/orderController");
@@ -25,6 +26,9 @@ const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:3000")
 connectDB()
   .then(migrateStock)
   .catch((err) => console.error("Startup migration failed:", err));
+
+// Initialize Vercel Speed Insights
+injectSpeedInsights();
 
 // --- MIDDLEWARE ---
 app.use(
